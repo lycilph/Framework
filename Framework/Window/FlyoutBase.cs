@@ -1,5 +1,4 @@
-﻿using Caliburn.Micro.ReactiveUI;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using ReactiveUI;
 
 namespace Framework.Window

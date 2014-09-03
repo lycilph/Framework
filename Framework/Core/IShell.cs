@@ -1,4 +1,5 @@
-﻿using Framework.Window;
+﻿using Framework.MainMenu.ViewModels;
+using Framework.Window;
 using ReactiveUI;
 
 namespace Framework.Core
@@ -8,5 +9,6 @@ namespace Framework.Core
         ReactiveList<IWindowCommand> LeftShellCommands { get; }
         ReactiveList<IWindowCommand> RightShellCommands { get; }
         ReactiveList<IFlyout> ShellFlyouts { get; }
+        IMenu Menu { get; }
     }
 }

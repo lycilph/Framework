@@ -2,11 +2,11 @@
 
 namespace Framework.Docking
 {
-    public abstract class Tool : LayoutItemScreen, ITool
+    public abstract class ToolScreen : LayoutItemScreen, ITool
     {
-        public abstract PaneLocation DefaultLocation { get;  }
-        public abstract double DefaultWidth { get; }
-        public abstract double DefaultHeight { get; }
+        public virtual PaneLocation DefaultLocation { get { return PaneLocation.Bottom; }  }
+        public virtual double DefaultWidth { get { return 0; } }
+        public virtual double DefaultHeight { get { return 0; } }
         public virtual bool StartAutoHidden { get { return false; } }
         public virtual bool StartDockedAsDocument { get { return false; } }
 

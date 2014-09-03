@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="SubHeaderTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+        <Setter Property="FontSize" Value="{StaticResource SubHeaderFontSize}"/>
+        <Setter Property="FontFamily" Value="{StaticResource HeaderFontFamily}"/>
+    </Style>
+
+    <Style x:Key="ContentTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+        <Setter Property="FontSize" Value="{StaticResource ContentFontSize}"/>
+        <Setter Property="FontFamily" Value="{StaticResource ContentFontFamily}"/>
+    </Style>
+
+</ResourceDictionary>

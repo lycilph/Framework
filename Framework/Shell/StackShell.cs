@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Caliburn.Micro.ReactiveUI;
 using Framework.Core;
+using Framework.MainMenu.ViewModels;
 using Framework.Mvvm;
 using Framework.Window;
 using ReactiveUI;
 
-namespace Framework.Starter
+namespace Framework.Shell
 {
-    public class ShellViewModelBase : ReactiveConductor<IViewModel>, IShell
+    public class StackShell : ReactiveConductor<IViewModel>, IShell
     {
         protected readonly Stack<IViewModel> items = new Stack<IViewModel>();
 
@@ -27,6 +28,13 @@ namespace Framework.Starter
         public ReactiveList<IFlyout> ShellFlyouts
         {
             get { return _ShellFlyouts; }
+        }
+
+        private IMenu _Menu;
+        public IMenu Menu
+        {
+            get { return _Menu; }
+            set { this.RaiseAndSetIfChanged(ref _Menu, value); }
         }
 
         protected void Back()

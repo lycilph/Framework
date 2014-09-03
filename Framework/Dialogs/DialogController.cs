@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using Caliburn.Micro;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using ReactiveUI;
@@ -21,7 +22,7 @@ namespace Framework.Dialogs
         {
             var window = GetMainWindow();
             var dialog = new HostDialog(button_options) {DataContext = view_model};
-
+            
             return window.ShowMetroDialogAsync(dialog)
                          .ContinueWith(async _ =>
                              {
@@ -35,6 +36,12 @@ namespace Framework.Dialogs
         {
             var window = GetMainWindow();
             return window.ShowMessageAsync(title, message);
+        }
+
+        public static Task<string> ShowInput(string title, string message)
+        {
+            var window = GetMainWindow();
+            return window.ShowInputAsync(title, message);
         }
 
         public static Task<ProgressDialogController> ShowBusyDialog(string title, string message)

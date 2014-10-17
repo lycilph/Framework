@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Caliburn.Micro;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using ReactiveUI;
@@ -22,20 +21,33 @@ namespace Framework.Dialogs
         {
             var window = GetMainWindow();
             var dialog = new HostDialog(button_options) {DataContext = view_model};
-            
+
+            if (view_model is ICanOk)
+            {
+                var vm = view_model as ICanOk;
+                vm.WhenAnyValue(x => x.CanOk)
+                  .Subscribe(x => dialog.ok_button.IsEnabled = x);
+            }
+
+            if (view_model is IHaveCloseAction)
+            {
+                var vm = view_model as IHaveCloseAction;
+                vm.CloseCallback = dialog.CloseCallback;
+            }
+
             return window.ShowMetroDialogAsync(dialog)
                          .ContinueWith(async _ =>
-                             {
-                                 var result = await dialog.Task;
-                                 await window.HideMetroDialogAsync(dialog);
-                                 return result;
-                             }, TaskScheduler.FromCurrentSynchronizationContext()).Unwrap();
+                         {
+                             var result = await dialog.Task;
+                             await window.HideMetroDialogAsync(dialog);
+                             return result;
+                         }, TaskScheduler.FromCurrentSynchronizationContext()).Unwrap();
         }
 
-        public static Task<MessageDialogResult> ShowMessage(string title, string message)
+        public static Task<MessageDialogResult> ShowMessage(string title, string message, MessageDialogStyle style = MessageDialogStyle.Affirmative, MetroDialogSettings settings = null)
         {
             var window = GetMainWindow();
-            return window.ShowMessageAsync(title, message);
+            return window.ShowMessageAsync(title, message, style, settings);
         }
 
         public static Task<string> ShowInput(string title, string message)

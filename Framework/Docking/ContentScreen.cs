@@ -8,7 +8,7 @@ namespace Framework.Docking
         {
             TryClose();
         }
-        
+
         public virtual Task Finish()
         {
             return Task.FromResult(0);

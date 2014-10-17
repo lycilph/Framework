@@ -4,7 +4,7 @@ namespace Framework.Mvvm
 {
     public class ItemViewModelBase<T> : ReactiveObject
     {
-        public T AssociatedObject { get; private set; }
+        public T AssociatedObject { get; protected set; }
 
         public ItemViewModelBase(T obj)
         {

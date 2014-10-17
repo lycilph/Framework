@@ -7,7 +7,7 @@ namespace Framework.Dialogs
 {
     public partial class HostDialog
     {
-        private readonly TaskCompletionSource<MessageDialogResult> tcs = new TaskCompletionSource<MessageDialogResult>();
+        private readonly TaskCompletionSource<MessageDialogResult> tcs;
 
         public Task<MessageDialogResult> Task { get { return tcs.Task; } }
 
@@ -16,6 +16,7 @@ namespace Framework.Dialogs
         public HostDialog(DialogButtonOptions options)
         {
             InitializeComponent();
+            tcs = new TaskCompletionSource<MessageDialogResult>();
 
             switch (options)
             {

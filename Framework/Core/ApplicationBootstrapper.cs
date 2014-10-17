@@ -81,17 +81,18 @@ namespace Framework.Core
 
         protected override void OnExit(object sender, EventArgs e)
         {
-            logger.Trace("Exit");
-
             base.OnExit(sender, e);
             RunTasks(SHUTDOWN_TASK_NAME);
+
+            logger.Trace("Exit");
+
         }
 
         protected virtual void CurrentOnSessionEnding(object sender, SessionEndingCancelEventArgs session_ending_cancel_event_args)
         {
-            logger.Trace("Session Ending");
-
             RunTasks(SHUTDOWN_TASK_NAME);
+            
+            logger.Trace("Session Ended");
         }
 
         protected virtual void RunTasks(string contract)

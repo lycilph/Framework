@@ -21,7 +21,8 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Right"
                         Height="85">
-                <Button Height="35"
+                <Button x:Name="ok_button"
+                        Height="35"
                         MinWidth="80"
                         Style="{DynamicResource AccentedDialogSquareButton}"
                         Content="Ok"

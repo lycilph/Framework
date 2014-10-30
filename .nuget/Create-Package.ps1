@@ -1,6 +1,7 @@
-# $msbuild = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe"
-# & $msbuild .\DesktopOrganizer.sln /p:Configuration=Release /m
+$solution = Get-ChildItem -Include "*.sln" -Recurse
+$msbuild = "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"
+Invoke-Expression "$msbuild $solution /p:Configuration=Release /t:rebuild /v:minimal /nologo"
 
 # Create package
-$file = Get-Ch ildItem -Include "*.csproj" -Recurse 
-.\.nuget\nug et.exe pack $file -OutputDirectory .nuget -Prop Configuration=Release
+$file = Get-ChildItem -Include "*.csproj" -Recurse 
+.\.nuget\nuget.exe pack -sym $file -OutputDirectory .nuget -Prop Configuration=Release

@@ -2,9 +2,9 @@
 using Framework.Core.Menu.ViewModels;
 using ReactiveUI;
 
-namespace Framework.Core
+namespace Framework.Core.Shell
 {
-    public class ConductorShellBase<T> : ReactiveConductor<T>, IShell where T : class 
+    public class ConductorShell<T> : ReactiveConductor<T>, IShell where T : class 
     {
         private readonly ReactiveList<IWindowCommand> left_shell_commands = new ReactiveList<IWindowCommand>();
         public ReactiveList<IWindowCommand> LeftShellCommands 

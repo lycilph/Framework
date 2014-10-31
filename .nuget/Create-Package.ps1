@@ -4,4 +4,4 @@ Invoke-Expression "$msbuild $solution /p:Configuration=Release /t:rebuild /v:min
 
 # Create package
 $file = Get-ChildItem -Include "*.csproj" -Recurse 
-.\.nuget\nuget.exe pack -sym $file -OutputDirectory .nuget -Prop Configuration=Release
+.\.nuget\nuget.exe pack $file -OutputDirectory .nuget -Prop Configuration=Release

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace Framework.Core
+namespace Framework.Core.Shell
 {
     public class InputBindingTrigger : TriggerBase<FrameworkElement>, ICommand
     {

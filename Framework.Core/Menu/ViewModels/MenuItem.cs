@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Caliburn.Micro;
+using Framework.Core.Shell;
 using ReactiveUI;
 
 namespace Framework.Core.Menu.ViewModels

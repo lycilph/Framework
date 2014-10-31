@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
+using Framework.Core.Shell;
 using MahApps.Metro.Controls;
 using NLog;
 using LogManager = NLog.LogManager;

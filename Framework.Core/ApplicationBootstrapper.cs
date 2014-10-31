@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
+using Framework.Core.Shell;
 using NLog;
 using LogManager = Caliburn.Micro.LogManager;
 

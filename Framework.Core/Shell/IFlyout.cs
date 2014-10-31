@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using MahApps.Metro.Controls;
 
-namespace Framework.Core
+namespace Framework.Core.Shell
 {
     public interface IFlyout : IHaveDisplayName
     {

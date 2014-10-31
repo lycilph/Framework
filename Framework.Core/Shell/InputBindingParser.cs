@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace Framework.Core
+namespace Framework.Core.Shell
 {
     public static class InputBindingParser
     {

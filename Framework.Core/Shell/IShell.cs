@@ -1,7 +1,7 @@
 ﻿using Framework.Core.Menu.ViewModels;
 using ReactiveUI;
 
-namespace Framework.Core
+namespace Framework.Core.Shell
 {
     public interface IShell
     {

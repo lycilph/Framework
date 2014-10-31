@@ -4,7 +4,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using Caliburn.Micro;
 
-namespace Framework.Core
+namespace Framework.Core.Shell
 {
     [Export(typeof(IInputManager))]
     public class InputManager : IInputManager

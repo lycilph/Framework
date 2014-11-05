@@ -2,12 +2,18 @@ Framework
 =========
 
 Next steps
-1. Update app.xaml
-2. Add a Shell (derived from IShell or ShellBase)
+- Update App.xaml
+- Implement a Shell
+ - Add a ShellView
+ - Add a ShellViewModel
 
 
---- App.xaml - example ---
+App.xaml
+--------
 
+Sample app.xaml
+
+```xml
 <Application x:Class="<project>.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -28,34 +34,14 @@ Next steps
         </ResourceDictionary>
     </Application.Resources>
 </Application>
+```
 
+Shell
+-----
 
---- Shell ViewModel - example ---
+Sample ShellView
 
-[Export(typeof(IShell))]
-public class ShellViewModel : ShellBase
-{
-    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-    protected override void OnInitialize()
-    {
-        logger.Trace("Shell initializing");
-
-        base.OnInitialize();
-        DisplayName = "<Shell Name>";
-    }
-
-    protected override void OnDeactivate(bool close)
-    {
-        logger.Trace(string.Format("Shell deactivating ({0})", close));
-
-        base.OnDeactivate(close);
-    }
-}
-
-
---- Shell View - example ---
-
+```xml
 <controls:MetroWindow x:Class="BookCollector.Shell.ShellView"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -120,3 +106,29 @@ public class ShellViewModel : ShellBase
 
     <!--<controls:MetroContentControl x:Name="Content"/>-->
 </controls:MetroWindow>
+```
+
+Sample ShellViewModel
+
+```C#
+[Export(typeof(IShell))]
+public class ShellViewModel : ShellBase
+{
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+    protected override void OnInitialize()
+    {
+        logger.Trace("Shell initializing");
+
+        base.OnInitialize();
+        DisplayName = "<Shell Name>";
+    }
+
+    protected override void OnDeactivate(bool close)
+    {
+        logger.Trace(string.Format("Shell deactivating ({0})", close));
+
+        base.OnDeactivate(close);
+    }
+}
+```

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Framework : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Framework</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/lycilph/Framework">View on GitHub</a>
+
+          <h1 id="project_title">Framework</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/lycilph/Framework/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/lycilph/Framework/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="framework" class="anchor" href="#framework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Framework</h1>
+
+<p>Next steps</p>
+
+<ul>
+<li>Update App.xaml</li>
+<li>Implement a Shell
+
+<ul>
+<li>Add a ShellView</li>
+<li>Add a ShellViewModel</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="appxaml" class="anchor" href="#appxaml" aria-hidden="true"><span class="octicon octicon-link"></span></a>App.xaml</h2>
+
+<p>Sample app.xaml</p>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;Application</span> <span class="na">x:Class=</span><span class="s">"&lt;project&gt;.App"</span>
+             <span class="na">xmlns=</span><span class="s">"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</span>
+             <span class="na">xmlns:x=</span><span class="s">"http://schemas.microsoft.com/winfx/2006/xaml"</span>
+             <span class="na">xmlns:core=</span><span class="s">"clr-namespace:Framework.Core;assembly=Framework"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Application.Resources&gt;</span>
+        <span class="nt">&lt;ResourceDictionary&gt;</span>
+            <span class="nt">&lt;ResourceDictionary.MergedDictionaries&gt;</span>
+                <span class="nt">&lt;ResourceDictionary</span> <span class="na">Source=</span><span class="s">"pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;ResourceDictionary</span> <span class="na">Source=</span><span class="s">"pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;ResourceDictionary</span> <span class="na">Source=</span><span class="s">"pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;ResourceDictionary</span> <span class="na">Source=</span><span class="s">"pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;ResourceDictionary</span> <span class="na">Source=</span><span class="s">"pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;ResourceDictionary</span> <span class="na">Source=</span><span class="s">"pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;ResourceDictionary&gt;</span>
+                    <span class="nt">&lt;core:ApplicationBootstrapper</span> <span class="na">x:Key=</span><span class="s">"Bootstrapper"</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;/ResourceDictionary&gt;</span>
+            <span class="nt">&lt;/ResourceDictionary.MergedDictionaries&gt;</span>
+        <span class="nt">&lt;/ResourceDictionary&gt;</span>
+    <span class="nt">&lt;/Application.Resources&gt;</span>
+<span class="nt">&lt;/Application&gt;</span>
+</pre></div>
+
+<h2>
+<a id="shell" class="anchor" href="#shell" aria-hidden="true"><span class="octicon octicon-link"></span></a>Shell</h2>
+
+<p>Sample ShellView</p>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;controls:MetroWindow</span> <span class="na">x:Class=</span><span class="s">"BookCollector.Shell.ShellView"</span>
+                      <span class="na">xmlns=</span><span class="s">"http://schemas.microsoft.com/winfx/2006/xaml/presentation"</span>
+                      <span class="na">xmlns:x=</span><span class="s">"http://schemas.microsoft.com/winfx/2006/xaml"</span>
+                      <span class="na">xmlns:controls=</span><span class="s">"http://metro.mahapps.com/winfx/xaml/controls"</span>
+                      <span class="na">xmlns:cal=</span><span class="s">"http://www.caliburnproject.org"</span>
+                      <span class="na">xmlns:mc=</span><span class="s">"http://schemas.openxmlformats.org/markup-compatibility/2006"</span> 
+                      <span class="na">xmlns:d=</span><span class="s">"http://schemas.microsoft.com/expression/blend/2008"</span>
+                      <span class="na">xmlns:core=</span><span class="s">"clr-namespace:Framework.Core;assembly=Framework.Core"</span>
+                      <span class="na">mc:Ignorable=</span><span class="s">"d"</span> 
+                      <span class="na">Title=</span><span class="s">"Book Collector"</span> <span class="na">Height=</span><span class="s">"1000"</span> <span class="na">Width=</span><span class="s">"1200"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;controls:MetroWindow.LeftWindowCommands&gt;</span>
+        <span class="nt">&lt;controls:WindowCommands&gt;</span>
+            <span class="nt">&lt;ItemsControl</span> <span class="na">x:Name=</span><span class="s">"LeftShellCommands"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;ItemsControl.ItemsPanel&gt;</span>
+                    <span class="nt">&lt;ItemsPanelTemplate&gt;</span>
+                        <span class="nt">&lt;StackPanel</span> <span class="na">Orientation=</span><span class="s">"Horizontal"</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;/ItemsPanelTemplate&gt;</span>
+                <span class="nt">&lt;/ItemsControl.ItemsPanel&gt;</span>
+                <span class="nt">&lt;ItemsControl.ItemTemplate&gt;</span>
+                    <span class="nt">&lt;DataTemplate&gt;</span>
+                        <span class="nt">&lt;Button</span> <span class="na">x:Name=</span><span class="s">"Execute"</span>
+                                <span class="na">Content=</span><span class="s">"{Binding DisplayName}"</span>
+                                <span class="na">cal:Bind.Model=</span><span class="s">"{Binding}"</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;/DataTemplate&gt;</span>
+                <span class="nt">&lt;/ItemsControl.ItemTemplate&gt;</span>
+            <span class="nt">&lt;/ItemsControl&gt;</span>
+        <span class="nt">&lt;/controls:WindowCommands&gt;</span>
+    <span class="nt">&lt;/controls:MetroWindow.LeftWindowCommands&gt;</span>
+
+    <span class="nt">&lt;controls:MetroWindow.RightWindowCommands&gt;</span>
+        <span class="nt">&lt;controls:WindowCommands&gt;</span>
+            <span class="nt">&lt;ItemsControl</span> <span class="na">x:Name=</span><span class="s">"RightShellCommands"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;ItemsControl.ItemsPanel&gt;</span>
+                    <span class="nt">&lt;ItemsPanelTemplate&gt;</span>
+                        <span class="nt">&lt;StackPanel</span> <span class="na">Orientation=</span><span class="s">"Horizontal"</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;/ItemsPanelTemplate&gt;</span>
+                <span class="nt">&lt;/ItemsControl.ItemsPanel&gt;</span>
+                <span class="nt">&lt;ItemsControl.ItemTemplate&gt;</span>
+                    <span class="nt">&lt;DataTemplate&gt;</span>
+                        <span class="nt">&lt;Button</span> <span class="na">x:Name=</span><span class="s">"Execute"</span>
+                                <span class="na">Content=</span><span class="s">"{Binding DisplayName}"</span>
+                                <span class="na">cal:Bind.Model=</span><span class="s">"{Binding}"</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;/DataTemplate&gt;</span>
+                <span class="nt">&lt;/ItemsControl.ItemTemplate&gt;</span>
+            <span class="nt">&lt;/ItemsControl&gt;</span>
+        <span class="nt">&lt;/controls:WindowCommands&gt;</span>
+    <span class="nt">&lt;/controls:MetroWindow.RightWindowCommands&gt;</span>
+
+    <span class="nt">&lt;controls:MetroWindow.Flyouts&gt;</span>
+        <span class="nt">&lt;controls:FlyoutsControl</span> <span class="na">x:Name=</span><span class="s">"ShellFlyouts"</span> <span class="na">d:DataContext=</span><span class="s">"{d:DesignInstance core:FlyoutBase}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;controls:FlyoutsControl.ItemContainerStyle&gt;</span>
+                <span class="nt">&lt;Style</span> <span class="na">TargetType=</span><span class="s">"{x:Type controls:Flyout}"</span> <span class="na">BasedOn=</span><span class="s">"{StaticResource {x:Type controls:Flyout}}"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;Setter</span> <span class="na">Property=</span><span class="s">"Header"</span> <span class="na">Value=</span><span class="s">"{Binding DisplayName}"</span> <span class="nt">/&gt;</span>
+                    <span class="nt">&lt;Setter</span> <span class="na">Property=</span><span class="s">"IsOpen"</span> <span class="na">Value=</span><span class="s">"{Binding IsOpen}"</span> <span class="nt">/&gt;</span>
+                    <span class="nt">&lt;Setter</span> <span class="na">Property=</span><span class="s">"IsPinned"</span> <span class="na">Value=</span><span class="s">"{Binding IsPinned}"</span><span class="nt">/&gt;</span>
+                    <span class="nt">&lt;Setter</span> <span class="na">Property=</span><span class="s">"Position"</span> <span class="na">Value=</span><span class="s">"{Binding Position}"</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/Style&gt;</span>
+            <span class="nt">&lt;/controls:FlyoutsControl.ItemContainerStyle&gt;</span>
+        <span class="nt">&lt;/controls:FlyoutsControl&gt;</span>
+    <span class="nt">&lt;/controls:MetroWindow.Flyouts&gt;</span>
+
+    <span class="c">&lt;!--&lt;controls:MetroContentControl x:Name="Content"/&gt;--&gt;</span>
+<span class="nt">&lt;/controls:MetroWindow&gt;</span>
+</pre></div>
+
+<p>Sample ShellViewModel</p>
+
+<div class="highlight highlight-C#"><pre><span class="na">[Export(typeof(IShell))]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ShellViewModel</span> <span class="p">:</span> <span class="n">ShellBase</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="p">=</span> <span class="n">LogManager</span><span class="p">.</span><span class="n">GetCurrentClassLogger</span><span class="p">();</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnInitialize</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">Trace</span><span class="p">(</span><span class="s">"Shell initializing"</span><span class="p">);</span>
+
+        <span class="k">base</span><span class="p">.</span><span class="n">OnInitialize</span><span class="p">();</span>
+        <span class="n">DisplayName</span> <span class="p">=</span> <span class="s">"&lt;Shell Name&gt;"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnDeactivate</span><span class="p">(</span><span class="kt">bool</span> <span class="n">close</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">Trace</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">"Shell deactivating ({0})"</span><span class="p">,</span> <span class="n">close</span><span class="p">));</span>
+
+        <span class="k">base</span><span class="p">.</span><span class="n">OnDeactivate</span><span class="p">(</span><span class="n">close</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Framework maintained by <a href="https://github.com/lycilph">lycilph</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

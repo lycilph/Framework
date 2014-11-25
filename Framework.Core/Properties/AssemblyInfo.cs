@@ -35,4 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 // This is used by nuget packages
-[assembly: AssemblyInformationalVersion("1.0.1-alpha")]
+[assembly: AssemblyInformationalVersion("1.0.2-alpha")]

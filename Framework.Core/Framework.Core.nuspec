@@ -8,7 +8,7 @@
     <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release of package.</releaseNotes>
+    <releaseNotes>Added new dialog options</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Caliburn.Micro ReactiveUI MahApps.Metro</tags>
 

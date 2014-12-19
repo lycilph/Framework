@@ -27,6 +27,7 @@ namespace Framework.Core
 
         public ApplicationBootstrapper()
         {
+            logger.Trace("Created");
             Initialize();
             Application.Current.SessionEnding += CurrentOnSessionEnding;
         }
@@ -50,13 +51,15 @@ namespace Framework.Core
             assemblies.Add(Assembly.GetEntryAssembly());
 
             logger.Trace("SelectAssemblies");
-            assemblies.Apply(a => logger.Trace(a.FullName));
+            assemblies.Apply(a => logger.Trace("Found assembly: " + a.FullName));
 
             return assemblies;
         }
 
         protected override object GetInstance(Type service_type, string key)
         {
+            logger.Trace("GetInstance of {0} for key {1}", service_type.FullName, key);
+
             var contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(service_type) : key;
             var exports = container.GetExportedValues<object>(contract).ToList();
 
@@ -68,11 +71,15 @@ namespace Framework.Core
 
         protected override IEnumerable<object> GetAllInstances(Type service_type)
         {
+            logger.Trace("GetAllInstances of {0}", service_type.FullName);
+
             return container.GetExportedValues<object>(AttributedModelServices.GetContractName(service_type));
         }
 
         protected override void BuildUp(object instance)
         {
+            logger.Trace("BuildUp of {0}", instance.GetType().FullName);
+
             container.SatisfyImportsOnce(instance);
         }
 

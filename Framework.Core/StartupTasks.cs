@@ -17,6 +17,7 @@ namespace Framework.Core
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         [Export(ApplicationBootstrapper.STARTUP_TASK_NAME, typeof(BootstrapperTask))]
+        [ExportMetadata("Order", 0)]
         public void ApplyBindingScopeOverride()
         {
             logger.Trace("ApplyBindingScopeOverride");
@@ -79,6 +80,7 @@ namespace Framework.Core
         }
 
         [Export(ApplicationBootstrapper.STARTUP_TASK_NAME, typeof(BootstrapperTask))]
+        [ExportMetadata("Order", 0)]
         public void ApplyParserOverride()
         {
             logger.Trace("ApplyParserOverride");

@@ -96,6 +96,7 @@
       <DependentUpon>HostDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\IHaveDoneTask.cs" />
+    <Compile Include="IOrderMetadata.cs" />
     <Compile Include="MVVM\ItemViewModelBase.cs" />
     <Compile Include="Shell\ConductorShell.cs" />
     <Compile Include="Shell\FlyoutBase.cs" />

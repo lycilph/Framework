@@ -89,6 +89,7 @@ namespace Framework.Core
 
             logger.Trace("Running startup tasks");
             RunTasks(STARTUP_TASK_NAME);
+
             DisplayRootViewFor<IShell>();
         }
 
@@ -98,7 +99,6 @@ namespace Framework.Core
             RunTasks(SHUTDOWN_TASK_NAME);
 
             logger.Trace("Exit");
-
         }
 
         protected virtual void CurrentOnSessionEnding(object sender, SessionEndingCancelEventArgs session_ending_cancel_event_args)
@@ -111,8 +111,9 @@ namespace Framework.Core
 
         protected virtual void RunTasks(string contract)
         {
-            container.GetExportedValues<BootstrapperTask>(contract)
-                     .Apply(t => t());
+            container.GetExports<BootstrapperTask, IOrderMetadata>(contract)
+                                 .OrderBy(item => item.Metadata.Order)
+                                 .Apply(item => item.Value());
         }
     }
 }

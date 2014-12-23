@@ -102,6 +102,7 @@
                         &lt;<span class="pl-ent">Button</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s1"><span class="pl-pds">"</span>Execute<span class="pl-pds">"</span></span>
                                 <span class="pl-e">Content</span>=<span class="pl-s1"><span class="pl-pds">"</span>{Binding DisplayName}<span class="pl-pds">"</span></span>
                                 <span class="pl-e">IsEnabled</span>=<span class="pl-s1"><span class="pl-pds">"</span>{Binding IsEnabled}<span class="pl-pds">"</span></span>
+                                <span class="pl-e">Visibility</span>=<span class="pl-s1"><span class="pl-pds">"</span>{Binding IsVisible, Converter={StaticResource VisibilityConverter}}<span class="pl-pds">"</span></span>
                                 cal:Bind.Model=<span class="pl-s1"><span class="pl-pds">"</span>{Binding}<span class="pl-pds">"</span></span>/&gt;
                     &lt;/<span class="pl-ent">DataTemplate</span>&gt;
                 &lt;/<span class="pl-ent">ItemsControl</span>.ItemTemplate&gt;
@@ -122,6 +123,7 @@
                         &lt;<span class="pl-ent">Button</span> <span class="pl-e">x</span><span class="pl-e">:</span><span class="pl-e">Name</span>=<span class="pl-s1"><span class="pl-pds">"</span>Execute<span class="pl-pds">"</span></span>
                                 <span class="pl-e">Content</span>=<span class="pl-s1"><span class="pl-pds">"</span>{Binding DisplayName}<span class="pl-pds">"</span></span>
                                 <span class="pl-e">IsEnabled</span>=<span class="pl-s1"><span class="pl-pds">"</span>{Binding IsEnabled}<span class="pl-pds">"</span></span>
+                                <span class="pl-e">Visibility</span>=<span class="pl-s1"><span class="pl-pds">"</span>{Binding IsVisible, Converter={StaticResource VisibilityConverter}}<span class="pl-pds">"</span></span>
                                 cal:Bind.Model=<span class="pl-s1"><span class="pl-pds">"</span>{Binding}<span class="pl-pds">"</span></span>/&gt;
                     &lt;/<span class="pl-ent">DataTemplate</span>&gt;
                 &lt;/<span class="pl-ent">ItemsControl</span>.ItemTemplate&gt;

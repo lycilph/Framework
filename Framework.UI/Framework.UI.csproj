@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5CFB81A0-22F9-4B7A-9143-0D1F6A9443B5}</ProjectGuid>
+    <ProjectGuid>{B3B0E5CD-E873-462E-8114-90C75EF6A66D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Framework.Controls</RootNamespace>
-    <AssemblyName>Framework.Controls</AssemblyName>
+    <RootNamespace>Framework.UI</RootNamespace>
+    <AssemblyName>Framework.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,19 +39,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="EditableTextControl.xaml.cs">
       <DependentUpon>EditableTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="EditableTextControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <None Include="Framework.UI.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Framework.Controls.nuspec" />
+    <Page Include="EditableTextControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

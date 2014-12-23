@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Framework.Controls
+namespace Framework.UI
 {
     public partial class EditableTextControl
     {

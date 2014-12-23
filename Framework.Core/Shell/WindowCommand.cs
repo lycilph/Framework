@@ -14,6 +14,20 @@ namespace Framework.Core.Shell
             set { this.RaiseAndSetIfChanged(ref _DisplayName, value); }
         }
 
+        private bool _IsEnabled;
+        public bool IsEnabled
+        {
+            get { return _IsEnabled; }
+            set { this.RaiseAndSetIfChanged(ref _IsEnabled, value); }
+        }
+
+        private bool _IsVisible = true;
+        public bool IsVisible
+        {
+            get { return _IsVisible; }
+            set { this.RaiseAndSetIfChanged(ref _IsVisible, value); }
+        }
+
         public WindowCommand(string name, Action action)
         {
             this.action = action;

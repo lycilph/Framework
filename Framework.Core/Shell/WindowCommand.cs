@@ -14,7 +14,7 @@ namespace Framework.Core.Shell
             set { this.RaiseAndSetIfChanged(ref _DisplayName, value); }
         }
 
-        private bool _IsEnabled;
+        private bool _IsEnabled = true;
         public bool IsEnabled
         {
             get { return _IsEnabled; }

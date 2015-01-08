@@ -19,10 +19,10 @@ namespace Framework.Core.Dialogs
             return window;
         }
 
-        public static Task<MessageDialogResult> ShowMessageAsync(string title, string message)
+        public static Task<MessageDialogResult> ShowMessageAsync(string title, string message, MessageDialogStyle style = MessageDialogStyle.Affirmative)
         {
             var window = GetMetroWindow();
-            return window.ShowMessageAsync(title, message);
+            return window.ShowMessageAsync(title, message, style);
         }
 
         public static Task<MessageDialogResult> ShowAsync(IScreen view_model, DialogButtons buttons = DialogButtons.OkAndCancel)

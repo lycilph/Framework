@@ -11,12 +11,23 @@ namespace Framework.Core.Dialogs
 {
     public static class DialogController
     {
-        public static Task<MessageDialogResult> ShowAsync(IScreen view_model, DialogButtons buttons = DialogButtons.OkAndCancel)
+        private static MetroWindow GetMetroWindow()
         {
             var window = Application.Current.MainWindow as MetroWindow;
             if (window == null)
                 throw new InvalidOperationException("Main window must be a MetroWindow");
+            return window;
+        }
 
+        public static Task<MessageDialogResult> ShowMessageAsync(string title, string message)
+        {
+            var window = GetMetroWindow();
+            return window.ShowMessageAsync(title, message);
+        }
+
+        public static Task<MessageDialogResult> ShowAsync(IScreen view_model, DialogButtons buttons = DialogButtons.OkAndCancel)
+        {
+            var window = GetMetroWindow();
             var dialog = new HostDialog { ViewModel = view_model, Buttons = buttons };
 
             return window.ShowMetroDialogAsync(dialog)
@@ -30,10 +41,7 @@ namespace Framework.Core.Dialogs
 
         public static async Task ShowContent(IHaveDoneTask screen)
         {
-            var window = Application.Current.MainWindow as MetroWindow;
-            if (window == null)
-                throw new InvalidOperationException("Main window must be a MetroWindow");
-
+            var window = GetMetroWindow();
             var container_field = window.GetType().GetField("metroDialogContainer", BindingFlags.Instance | BindingFlags.NonPublic);
             if (container_field == null) return;
             var container = container_field.GetValue(window) as Grid;

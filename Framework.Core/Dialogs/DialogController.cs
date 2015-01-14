@@ -39,7 +39,7 @@ namespace Framework.Core.Dialogs
                              }, TaskScheduler.FromCurrentSynchronizationContext()).Unwrap();
         }
 
-        public static async Task ShowContent(IHaveDoneTask screen)
+        public static async Task ShowViewModel(IHaveDoneTask screen)
         {
             var window = GetMetroWindow();
             var container_field = window.GetType().GetField("metroDialogContainer", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -50,6 +50,30 @@ namespace Framework.Core.Dialogs
             // Find and bind the view for the model
             var view = ViewLocator.LocateForModel(screen, null, null);
             ViewModelBinder.Bind(screen, view, null);
+
+            // Show overlay and content
+            await window.ShowOverlayAsync();
+            container.Children.Add(view);
+
+            // Wait for content to signal it is done
+            await screen.Done;
+
+            // Remove view and hide overlay
+            container.Children.Remove(view);
+            await window.HideOverlayAsync();
+        }
+
+        public static async Task ShowView(UserControl view)
+        {
+            var window = GetMetroWindow();
+            var container_field = window.GetType().GetField("metroDialogContainer", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (container_field == null) return;
+            var container = container_field.GetValue(window) as Grid;
+            if (container == null) return;
+
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            var screen = view as IHaveDoneTask;
+            if (screen == null) return;
 
             // Show overlay and content
             await window.ShowOverlayAsync();

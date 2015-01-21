@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.2-alpha</version>
+    <version>1.0.3-alpha</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Added common framework namespace</releaseNotes>
+    <releaseNotes>FillPanel and helper class</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Controls</tags>
   </metadata>

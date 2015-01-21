@@ -45,6 +45,7 @@
     </Compile>
     <Compile Include="FillPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisualStateHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Framework.UI.nuspec" />

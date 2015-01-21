@@ -39,13 +39,15 @@ namespace Framework.Core.Dialogs
                              }, TaskScheduler.FromCurrentSynchronizationContext()).Unwrap();
         }
 
-        public static async Task ShowViewModel(IHaveDoneTask screen)
+        public static async Task<MessageDialogResult> ShowViewModel(IHaveDoneTask screen)
         {
             var window = GetMetroWindow();
             var container_field = window.GetType().GetField("metroDialogContainer", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (container_field == null) return;
+            if (container_field == null)
+                throw new Exception("Could not find dialog container");
             var container = container_field.GetValue(window) as Grid;
-            if (container == null) return;
+            if (container == null)
+                throw new Exception("Dialog container is of wrong type");
 
             // Find and bind the view for the model
             var view = ViewLocator.LocateForModel(screen, null, null);
@@ -56,35 +58,42 @@ namespace Framework.Core.Dialogs
             container.Children.Add(view);
 
             // Wait for content to signal it is done
-            await screen.Done;
+            var result = await screen.Done;
 
             // Remove view and hide overlay
             container.Children.Remove(view);
             await window.HideOverlayAsync();
+
+            return result;
         }
 
-        public static async Task ShowView(UserControl view)
+        public static async Task<MessageDialogResult> ShowView(UserControl view)
         {
             var window = GetMetroWindow();
             var container_field = window.GetType().GetField("metroDialogContainer", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (container_field == null) return;
+            if (container_field == null)
+                throw new Exception("Could not find dialog container");
             var container = container_field.GetValue(window) as Grid;
-            if (container == null) return;
+            if (container == null)
+                throw new Exception("Dialog container is of wrong type");
 
             // ReSharper disable once SuspiciousTypeConversion.Global
             var screen = view as IHaveDoneTask;
-            if (screen == null) return;
+            if (screen == null)
+                throw new Exception("View does not implement IHaveDoneTask interface");
 
             // Show overlay and content
             await window.ShowOverlayAsync();
             container.Children.Add(view);
 
             // Wait for content to signal it is done
-            await screen.Done;
+            var result = await screen.Done;
 
             // Remove view and hide overlay
             container.Children.Remove(view);
             await window.HideOverlayAsync();
+
+            return result;
         }
     }
 }

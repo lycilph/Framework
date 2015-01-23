@@ -23,13 +23,49 @@ namespace Framework.UI
             set { SetValue(SelectedIndexProperty, value); }
         }
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(FillPanel), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(FillPanel), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, SelectedIndexChanged));
+
+        public FillPanel()
+        {
+            Animate = false;
+        }
+
+        private static void SelectedIndexChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            var panel = obj as FillPanel;
+            if (panel == null) return;
+
+            panel.Animate = true;
+            panel.AnimationDone += DisableAnimation;
+        }
+
+        private static void DisableAnimation(object sender, EventArgs args)
+        {
+            var panel = sender as FillPanel;
+            if (panel == null) return;
+
+            panel.Animate = false;
+            panel.AnimationDone -= DisableAnimation;
+        }
 
         protected override Size MeasureOverride(Size available_size)
         {
-            foreach (UIElement element in InternalChildren)
+            var children = InternalChildren.Cast<UIElement>().ToList();
+            var accumulated_height = 0.0;
+            // Measure non-fill children
+            foreach (var element in children.Where(c => GetIndex(c) == -1))
             {
-                element.Measure(available_size);
+                var constraint_size = new Size(available_size.Width, available_size.Height - accumulated_height);
+                element.Measure(constraint_size);
+                accumulated_height += element.DesiredSize.Height;
+            }
+            // Measure fill children
+            foreach (var element in children.Where(c => GetIndex(c) > -1))
+            {
+                var constraint_size = new Size(available_size.Width, available_size.Height - accumulated_height);
+                element.Measure(constraint_size);
+                if (GetIndex(element) == SelectedIndex)
+                    accumulated_height += element.DesiredSize.Height;
             }
 
             return new Size(available_size.Width, available_size.Height);
@@ -37,6 +73,8 @@ namespace Framework.UI
 
         protected override Size ArrangeOverride(Size final_size)
         {
+            System.Diagnostics.Debug.WriteLine("ArrangeOverride");
+
             var accumulated_height = InternalChildren.Cast<UIElement>().Sum(child => (GetIndex(child) == -1 ? child.DesiredSize.Height : 0));
             var fill_height = final_size.Height - accumulated_height;
 

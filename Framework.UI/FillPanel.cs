@@ -1,65 +1,63 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System;
+using System.Linq;
+using System.Windows;
 
 namespace Framework.UI
 {
-    public class FillPanel : Panel
+    public class FillPanel : AnimatedPanel
     {
-        #region Fill attached property
-
-        public static bool GetFill(DependencyObject obj)
+        public static int GetIndex(DependencyObject obj)
         {
-            return (bool)obj.GetValue(FillProperty);
+            return (int)obj.GetValue(IndexProperty);
         }
-        public static void SetFill(DependencyObject obj, bool value)
+        public static void SetIndex(DependencyObject obj, int value)
         {
-            obj.SetValue(FillProperty, value);
+            obj.SetValue(IndexProperty, value);
         }
-        public static readonly DependencyProperty FillProperty =
-            DependencyProperty.RegisterAttached("Fill", typeof(bool), typeof(FillPanel),
-                new FrameworkPropertyMetadata(false,
-                    FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+        public static readonly DependencyProperty IndexProperty =
+            DependencyProperty.RegisterAttached("Index", typeof(int), typeof(FillPanel), new PropertyMetadata(-1));
 
-        #endregion
+        public int SelectedIndex
+        {
+            get { return (int)GetValue(SelectedIndexProperty); }
+            set { SetValue(SelectedIndexProperty, value); }
+        }
+        public static readonly DependencyProperty SelectedIndexProperty =
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(FillPanel), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         protected override Size MeasureOverride(Size available_size)
         {
             foreach (UIElement element in InternalChildren)
+            {
                 element.Measure(available_size);
+            }
 
             return new Size(available_size.Width, available_size.Height);
         }
 
         protected override Size ArrangeOverride(Size final_size)
         {
-            var accumulated_height = 0.0;
-            var fill_children_count = 0;
-            foreach (UIElement element in InternalChildren)
-            {
-                if (GetFill(element))
-                    fill_children_count++;
-                else
-                    accumulated_height += element.DesiredSize.Height;
-            }
-
-            var height_per_fill_child = (final_size.Height - accumulated_height) / fill_children_count;
+            var accumulated_height = InternalChildren.Cast<UIElement>().Sum(child => (GetIndex(child) == -1 ? child.DesiredSize.Height : 0));
+            var fill_height = final_size.Height - accumulated_height;
 
             var current_y = 0.0;
             foreach (UIElement element in InternalChildren)
             {
-                if (GetFill(element))
-                {
-                    element.Arrange(new Rect(0, current_y, element.DesiredSize.Width, height_per_fill_child));
-                    current_y += height_per_fill_child;
-                }
+                var width = Math.Max(final_size.Width, element.DesiredSize.Width);
+
+                double height;
+                if (GetIndex(element) == SelectedIndex)
+                    height = fill_height;
+                else if (GetIndex(element) > -1)
+                    height = 0;
                 else
-                {
-                    element.Arrange(new Rect(0, current_y, element.DesiredSize.Width, element.DesiredSize.Height));
-                    current_y += element.DesiredSize.Height;
-                }
+                    height = element.DesiredSize.Height;
+
+                AnimatedArrange(element, new Rect(0, current_y, width, height));
+                current_y += height;
             }
 
-            return new Size(final_size.Width, final_size.Height);
+            return base.ArrangeOverride(final_size);
         }
     }
 }

@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.3-alpha</version>
+    <version>1.0.4-alpha</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>FillPanel and helper class</releaseNotes>
+    <releaseNotes>Rewritten FillPanel</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Controls</tags>
   </metadata>

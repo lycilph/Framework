@@ -13,7 +13,7 @@ namespace Framework.UI
         private readonly Dictionary<UIElement, Rect> starting_positions = new Dictionary<UIElement, Rect>();
         private readonly Dictionary<UIElement, Rect> target_positions = new Dictionary<UIElement, Rect>();
         private DateTime end_time = DateTime.Now;
-        private bool is_animating = false;
+        private bool is_animating;
 
         public TimeSpan Duration
         {
@@ -55,26 +55,23 @@ namespace Framework.UI
                 }
             }
 
-            if (is_animating)
-            {
-                var time_remaining = (end_time - now).TotalMilliseconds;
-                var normalized_time = Math.Min(1.0, 1.0 - time_remaining/Duration.TotalMilliseconds);
-                var fraction_complete = (EasingFunction == null ? normalized_time : EasingFunction.Ease(normalized_time));
+            var time_remaining = (end_time - now).TotalMilliseconds;
+            var normalized_time = Math.Min(1.0, 1.0 - time_remaining/Duration.TotalMilliseconds);
+            var fraction_complete = (EasingFunction == null ? normalized_time : EasingFunction.Ease(normalized_time));
 
+            foreach (UIElement child in InternalChildren)
+            {
+                var pos = RectExtensions.Interpolate(starting_positions[child], target_positions[child], fraction_complete);
+                child.Arrange(pos);
+            }
+
+            if (time_remaining < 0)
+            {
+                is_animating = false;
+                CompositionTarget.Rendering -= CompositionTarget_Rendering;
                 foreach (UIElement child in InternalChildren)
                 {
-                    var pos = RectExtensions.Interpolate(starting_positions[child], target_positions[child], fraction_complete);
-                    child.Arrange(pos);
-                }
-
-                if (time_remaining < 0)
-                {
-                    is_animating = false;
-                    CompositionTarget.Rendering -= CompositionTarget_Rendering;
-                    foreach (UIElement child in InternalChildren)
-                    {
-                        starting_positions[child] = target_positions[child];
-                    }
+                    starting_positions[child] = target_positions[child];
                 }
             }
 

@@ -15,8 +15,6 @@ namespace Framework.UI
         private DateTime end_time = DateTime.Now;
         private bool is_animating;
 
-        public EventHandler AnimationDone = delegate {};
-
         public TimeSpan Duration
         {
             get { return (TimeSpan)GetValue(DurationProperty); }
@@ -33,30 +31,11 @@ namespace Framework.UI
         public static readonly DependencyProperty EasingFunctionProperty =
             DependencyProperty.Register("EasingFunction", typeof(IEasingFunction), typeof(AnimatedPanel), new PropertyMetadata(null));
 
-        public bool Animate
-        {
-            get { return (bool)GetValue(AnimateProperty); }
-            set { SetValue(AnimateProperty, value); }
-        }
-        public static readonly DependencyProperty AnimateProperty =
-            DependencyProperty.Register("Animate", typeof(bool), typeof(AnimatedPanel), new PropertyMetadata(true));
-
         protected override Size ArrangeOverride(Size final_size)
         {
-            if (Animate)
-                AnimatedArrangeInternal();
-            else
-                ArrangeInternal();
+            AnimatedArrangeInternal();
 
             return base.ArrangeOverride(final_size);
-        }
-
-        private void ArrangeInternal()
-        {
-            foreach (UIElement child in InternalChildren)
-            {
-                child.Arrange(target_positions[child]);
-            }
         }
 
         private void AnimatedArrangeInternal()
@@ -95,8 +74,6 @@ namespace Framework.UI
 
             if (time_remaining < 0)
             {
-                AnimationDone(this, new EventArgs());
-
                 is_animating = false;
                 CompositionTarget.Rendering -= CompositionTarget_Rendering;
                 foreach (UIElement child in InternalChildren)

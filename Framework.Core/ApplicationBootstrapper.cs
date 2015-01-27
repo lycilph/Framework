@@ -58,7 +58,7 @@ namespace Framework.Core
 
         protected override object GetInstance(Type service_type, string key)
         {
-            var postfix = (string.IsNullOrWhiteSpace(key) ? "" : string.Format("for key [{0}]", key));
+            var postfix = (string.IsNullOrWhiteSpace(key) ? "" : string.Format(" for key [{0}]", key));
             logger.Trace("GetInstance of {0}{1}", service_type.FullName, postfix);
 
             var contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(service_type) : key;

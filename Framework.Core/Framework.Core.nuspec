@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.14-alpha</version>
+    <version>1.0.15-alpha</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Added return values for dialogs</releaseNotes>
+    <releaseNotes>Minor logging update</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Caliburn.Micro ReactiveUI MahApps.Metro</tags>
 
